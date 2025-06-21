@@ -8,7 +8,7 @@ function NameTaker(){
     })
 }
 
-NameTaker().then(val=>{
+ NameTaker().then(val=>{
     console.log("Final Value:",val);
     ans=[];
     ansb=[];
