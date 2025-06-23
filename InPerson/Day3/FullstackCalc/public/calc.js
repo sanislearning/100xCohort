@@ -1,7 +1,7 @@
 const btns=document.querySelectorAll("button");
 const input1=document.querySelector(".val1 input");
 const input2=document.querySelector(".val2 input");
-const resultBox=document.getElementById("readshit");
+const resultBox=document.getElementById("realshit");
 
 btns.forEach(function(btn){
     btn.addEventListener("click",function(){

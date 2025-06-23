@@ -4,7 +4,7 @@
   "description": "",
   "main": "calc.js",
   "scripts": {
-    "dev": "nodemon calc.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
