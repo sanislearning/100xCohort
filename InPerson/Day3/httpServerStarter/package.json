@@ -2,7 +2,7 @@
   "name": "httpserverstarter",
   "version": "1.0.0",
   "description": "Serving a website via HTTP",
-  "main": "index.js",
+  "main": "calc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
