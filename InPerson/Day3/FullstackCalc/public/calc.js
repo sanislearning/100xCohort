@@ -16,25 +16,20 @@ btns.forEach(function(btn){
         if (operator==='*') endpoint='mult';
         if (operator==="/") endpoint='div';
 
-        fetch(`/${endpoint}`,{
-            method:"POST", //tells the server that we are sending a POST request
-            headers:{
-                "Content-Type":"application/json" //Tells what kind of content you are sending the server
-            },
-            body:JSON.stringify({ //converts the two numbers into a JSON string
-                num1:val1,
-                num2:val2
-            })
+        //Axios is probably an easier way to do this instead of regular fetch
+        
+        axios.post(`${endpoint}`,{
+            num1:val1,
+            num2:val2
         })
-        .then(function(res){  //waits for server to respond
-            return res.json(); //converts raw http response into JSON
+        .then(function(response){
+            console.log("Server response:",response.data);
+            resultBox.innerText=response.data.answer;
         })
-        .then(function(data){
-            resultBox.innerText=data.answer; //Once we get the response, get the data.answer, put in display element
+        .catch(function(error){
+            console.error("Error: ",error);
+            resultBox.innerText="Error!";
         })
-        .catch(function(err){
-            resultBox.innerText="Error";
-            console.error(err);
-        })
+        //Supposed to catch any errors if they appear
     })
 })
