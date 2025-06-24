@@ -1,0 +1,17 @@
+{
+  "name": "100xcohort",
+  "version": "1.0.0",
+  "description": "All of the mini-projects that I will do as part of the 100x Cohort will be kept here.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {}
+}
