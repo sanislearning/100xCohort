@@ -16,20 +16,31 @@ btns.forEach(function(btn){
         if (operator==='*') endpoint='mult';
         if (operator==="/") endpoint='div';
 
-        //Axios is probably an easier way to do this instead of regular fetch
-        
-        axios.post(`${endpoint}`,{
-            num1:val1,
-            num2:val2
+
+        axios.get(`/${endpoint}`,{
+            params:{
+                num1:val1,
+                num2:val2
+            }
         })
         .then(function(response){
             console.log("Server response:",response.data);
             resultBox.innerText=response.data.answer;
         })
-        .catch(function(error){
-            console.error("Error: ",error);
-            resultBox.innerText="Error!";
-        })
+        //Axios is probably an easier way to do this instead of regular fetch
+
+        // axios.post(`${endpoint}`,{
+        //     num1:val1,
+        //     num2:val2
+        // })
+        // .then(function(response){
+        //     console.log("Server response:",response.data);
+        //     resultBox.innerText=response.data.answer;
+        // })
+        // .catch(function(error){
+        //     console.error("Error: ",error);
+        //     resultBox.innerText="Error!";
+        // })
         //Supposed to catch any errors if they appear
     })
 })
