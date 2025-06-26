@@ -1,5 +1,5 @@
 const express=require('express');
-const jwt=require("jsonwebtoken") //required to get jwts working
+const jwt=require("jsonwebtoken") //required to get jwts workin
 const app=express();
 const port=3000;
 app.use(express.json());

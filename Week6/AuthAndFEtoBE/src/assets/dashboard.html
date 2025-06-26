@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>ToDos</h1>
+        <input type="text" placeholder="Task Description" id="tasks"/>
+        <button onClick=addtask()>Add Task</button>
+        <div id="storage">
+
+        </div>
+
+        <script>
+            let token=localStorage.getItem("token");
+            window.onload=function(){taskloader(token)}
+            function taskloader(token){
+                const container=document.getElementById("storage")
+                container.innerHTML="";
+                axios.get('http://localhost:3000/todo',{
+                    headers:{
+                        token:token
+                    }
+                })
+                .then(function(response){
+                    response.data.forEach(task => {
+                        let div=document.createElement("div")
+                        div.innerText="-"+task.title
+                        let delbutton=document.createElement("button")
+                        delbutton.innerText="Delete";
+                        delbutton.onclick=()=>deleteTodo(task.id);
+                        div.appendChild(delbutton);
+                        container.appendChild(div);
+                    });
+                })
+            }
+
+            function addtask(){
+                let title=document.getElementById('tasks').value
+                let id=Math.random()
+                axios.post('http://localhost:3000/todo',{
+                    title:title,
+                    id:id
+                },{
+                    headers:
+                    {
+                        token:token
+                    }
+                })
+                taskloader(token)
+            }
+
+            function deleteTodo(id){
+                axios.delete('http://localhost:3000/todo',{headers:{
+                    token:token
+                },data:{
+                    id:id
+                }}
+                 
+            )
+            taskloader(token)
+            }
+            
+
+        </script>
+    </body>
+</html>

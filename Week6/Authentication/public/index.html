@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SampleSignIn</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+        Signup
+        <input type="text" id="susername" placeholder="Username"/>
+        <input type="text" id="spassword" placeholder="Password"/>
+        <button onclick="signup()">Submit</button>
+    </div>
+    <div>
+        Signin
+        <input type="text" id="username" placeholder="Username"/>
+        <input type="text" id="password" placeholder="Password"/>
+        <button onclick="signin()">Submit</button>
+    </div>
+    <div>
+        UserInformation
+        <div id="information"></div>
+    </div>
+    <div>
+        <button onclick="logout()">LogOut</button>
+    </div>
+    <script>
+        function signup(){
+            let username=document.getElementById("susername").value
+            let password=document.getElementById("spassword").value
+            axios.post("http://localhost:3000/signup",{
+                username:username,
+                password:password
+            })
+        }
+        function signin(){
+            let username=document.getElementById("username").value
+            let password=document.getElementById("password").value
+            axios.post("http://localhost:3000/signin",{
+                username:username,
+                password:password
+            })
+            .then(
+                function(response){
+                    localStorage.setItem("token",response.data.token)
+                    let container=document.getElementById("information")
+                    container.innerText=`The username is ${username} and the password is ${password}`
+                }
+            )
+        }
+        function logout(){
+            localStorage.removeItem('token')
+        }
+    </script> 
+</body>
+</html>
