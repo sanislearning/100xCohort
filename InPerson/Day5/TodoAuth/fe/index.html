@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Simple Auth</title>
+    </head>
+    <body>
+        <h1>Simple Auth</h1>
+        <input text id="username" placeholder="Username" type="text"/>
+        <input text id="password" placeholder="Password" type="password"/>
+        <button onclick="signup()">SignUp</button>
+        <script>
+            async function signup(){
+                let username=document.getElementById("username")
+                let password=document.getElementById("password")
+                res=await axios.post("http://localhost:3000/username",{
+                    "username":username,
+                    "password":password
+                })
+            }
+        </script>
+    </body>
+</html>

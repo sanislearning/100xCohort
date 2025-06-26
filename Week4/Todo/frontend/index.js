@@ -1,6 +1,6 @@
 const backendURL="http://localhost:3000";
 
-window.onload=fetchTodos;
+window.onload=fetchTodos; //displays current todo list on page load
 
 async function fetchTodos(){
     const res=await axios.get(backendURL);
@@ -12,7 +12,7 @@ async function fetchTodos(){
     todoList.forEach(
         function(todo){
             const div=document.createElement("div");
-            div.innerText=todo.title;
+            div.innerText="-"+todo.title;
 
             const delButton=document.createElement("button");
             delButton.innerText="Delete";
