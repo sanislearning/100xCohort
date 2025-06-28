@@ -3,9 +3,6 @@ const app=express()
 const port=3000
 const cors=require('cors')
 app.use(cors())
-const jwt=require('jsonwebtoken')
-const bcrypt=require('bcrypt')
-const { z }=require('zod')
 app.use(express.json())
 
 require("dotenv").config()
