@@ -2,6 +2,7 @@ const express=require("express")
 const Router=express.Router
 const userRouter=Router();
 const {UserModel}=require("../db")
+const {PurchaseModel}=require("../db")
 const {z}=require("zod")
 const jwt=require("jsonwebtoken")
 const {SECRET_KEY}=require('../config')
@@ -73,9 +74,14 @@ userRouter.post('/signin',async function(req,res){
     }
 })
 
-userRouter.get('/purchasedCourse',auth,function(req,res){
+userRouter.get('/purchasedCourse',auth,async function(req,res){
     let userId=req.userId
-    res.json({ message: `Courses purchased by user ${userId}` });
+    let purchased=await PurchaseModel.find({
+        userId:userId
+    })
+    res.json({
+        purchased
+    })
 })
 
 module.exports={

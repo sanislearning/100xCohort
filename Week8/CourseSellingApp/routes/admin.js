@@ -7,7 +7,6 @@ const {ADMIN_KEY}=require('../config')
 const {adminAuth}=require("../auth")
 const {z}=require("zod")
 const bcrypt=require('bcrypt')
-const course = require("./course")
 
 adminRouter.post('/signup',async function(req,res){
     const requiredBody=z.object({
@@ -18,7 +17,7 @@ adminRouter.post('/signup',async function(req,res){
     })
     const typeStatus=requiredBody.safeParse(req.body)
     if(!typeStatus.success){
-        req.json({
+        res.json({
             message:"Incorrect Format",
             error:typeStatus.error
         })
@@ -84,11 +83,28 @@ adminRouter.post('/course',adminAuth,async function(req,res){
     })
 })
 
-adminRouter.put('/course',adminAuth,function(req,res){
-
+adminRouter.put('/course',adminAuth,async function(req,res){
+    const adminId=req.userId
+    const { courseId, title, description, imageUrl, price } = req.body;
+    let ChangeCourse=await CourseModel.updateOne({
+        _id:courseId,
+        creatorId:adminId
+    },{
+        title:title,
+        description:description,
+        imageUrl:imageUrl,
+        price:price,
+    })
+    res.json({ message: "Course updated successfully" });
+    
 })
 
-adminRouter.get('/course/bulk',adminAuth,function(req,res){
+adminRouter.get('/course/bulk',adminAuth,async function(req,res){
+    const adminId=req.userId
+    let course=await CourseModel.find({
+        creatorId:adminId
+    })
+    res.send(course)
 
 })
 
