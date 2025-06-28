@@ -2,30 +2,19 @@ const express=require("express")
 const app=express()
 const port=3000
 const cors=require('cors')
-const cors=cors()
+app.use(cors())
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcrypt')
 const { z }=require('zod')
 const mongoose=require('mongoose')
 app.use(express.json())
 
-app.post('/signup',function(req,res){
-
-})
-
-app.post('/signin',function(req,res){
-
-})
-
-app.post('/purchase',function(req,res){
-
-})
-
-app.get('/coursesInfo',function(req,res){
-
-})
-
-app.post('/purchasedCourse',function(req,res){})
+const {adminRouter}=require('./routes/admin')
+const {courseRouter}=require('./routes/course')
+const {userRouter}=require('./routes/course')
+app.use('/user',userRouter);
+app.use('/course',courseRouter)
+app.use('/admin',adminRouter)
 
 
 
