@@ -51,7 +51,15 @@ app.post("/signin",function(req,res){
 
 function auth(req,res,next){
     const token=req.headers.token;
-    const decodedData=jwt.verify(token,JWT_SECRET);
+    try{
+        const decodedData=jwt.verify(token,JWT_SECRET);
+    }
+    catch(e){
+        const decodeData=false
+        res.json({
+            message:"Authentication Failed"
+        })
+    }
     let user=users.find(function(user){
         return user.username===decodedData.username
     })

@@ -82,7 +82,7 @@ app.post('/todo',function(req,res){
         title:title,
         id:id
     })
-    res.send("Task Adde")
+    res.send("Task Added")
 })
 
 app.delete('/todo',function(req,res){
