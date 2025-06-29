@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>Blogging Site</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>My Blogs</h1>
+        <button onclick="createBlog()">Create Blog</button>
+        <div id="blogCreate">
+            <input type="text" placeholder='title' id="title" />
+            <input type="text" placeholder="content" id="content"/>
+            <button onclick="post()">Post</button>
+        </div>
+        <div id="blogStore"></div>
+
+
+        <script>
+            document.getElementById("blogCreate").style.display="none";
+            //Toggles form display
+            function createBlog(){
+                const form=document.getElementById("blogCreate");
+                form.style.display=form.style.display==="none"?"block":"none"
+            }
+
+            async function post(){
+                const token=localStorage.getItem("token");
+                let title=document.getElementById("title").value
+                let content=document.getElementById("content").value
+                await axios.post("http://localhost:3000/create-blogs",{
+                    title:title,
+                    content:content},{
+                    headers:{
+                        token:token
+                    }}
+                )
+                alert("Blog created successfully!");
+                window.location.reload();
+            }
+
+            window.onload=async function(){
+                const token=localStorage.getItem("token")
+                if(!token){
+                    alert("You are not logged in")
+                    window.location.href='/signin'
+                    return;
+                }
+                try{
+                    const response=await axios.get("http://localhost:3000/blogs",{
+                        headers:{token:token}
+                    })
+                    const blogs=response.data;
+                    const blogStore=document.getElementById("blogStore")
+                    blogStore.innerHTML="";
+                    blogs.forEach(function(blog){
+                        const div=document.createElement("div")
+                        const title=document.createElement("h3")
+                        title.innerText=blog.title
+                        const snippet=document.createElement('p')
+                        snippet.innerText=blog.content.slice(0,100)+"..."
+                        const viewBtn=document.createElement("button")
+                        viewBtn.innerText="View Full Blog"
+                        viewBtn.onclick=()=>{
+                            alert(`Title: ${blog.title}\n\n${blog.content}`)
+                        }
+                        div.appendChild(title)
+                        div.appendChild(snippet)
+                        div.appendChild(viewBtn)
+                        blogStore.appendChild(div)
+                    })
+                }
+                catch(err){
+                    console.log(err)
+                }
+            }
+        </script>
+    </body>
+</html>

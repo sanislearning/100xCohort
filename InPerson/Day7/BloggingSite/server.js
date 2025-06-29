@@ -8,6 +8,18 @@ const port=3000
 const users=[]
 const blogs=[]
 
+app.get("/",function(req,res){
+    res.sendFile(__dirname+'/src/signup.html')
+})
+
+app.get('/signin',function(req,res){
+    res.sendFile(__dirname+'/src/signin.html')
+})
+
+app.get('/blog',function(req,res){
+    res.sendFile(__dirname+'/src/blog.html')
+})
+
 app.post("/signup",function(req,res){
     let username=req.body.username
     let password=req.body.password
@@ -26,7 +38,7 @@ app.post("/signup",function(req,res){
             id:id,
             username:username,
             password:password,
-            name:name    
+            name:name   
         })
         res.json({
             id:id,
@@ -41,19 +53,24 @@ app.post("/signin",function(req,res){
     let username=req.body.username
     let password=req.body.password
     let UserExist=users.find(function(user){
-        return user.username===username
+        return user.username===username&&user.password===password
     })
-    if(UserExist){
+    try {
+        if(UserExist){ 
         let token=jwt.sign({username},JWT_SECRET)
         res.json({
             token:token
         })
+        }
+        else{
+            res.json({
+                response:"You lack proper credentials"
+            })
+        }
+    } catch (error) {
+        console.log(error)
     }
-    else{
-        res.json({
-            response:"You lack proper credentials"
-        })
-    }
+    
 
 })
 
@@ -73,7 +90,9 @@ app.post("/create-blogs",function(req,res){
         content:content,
         userId:userId
     })
-    res.json({message:"Blog created successfully"})
+    res.json({message:"Blog created successfully",
+        blogs:blogs
+    })
 })
 
 app.get("/blogs",function(req,res){
