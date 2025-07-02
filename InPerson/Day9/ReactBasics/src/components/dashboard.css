@@ -1,0 +1,56 @@
+.background{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #ffd895;
+}
+.tasks{
+    background-color: #181616;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width:200px;
+}
+.delbutton{
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.SearchBar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/* .writeTodo{
+    
+                border: 3px solid #000;
+                border-radius: 5px;
+                height: 50px;
+                line-height: normal;
+                color: #282828;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                user-select: auto;
+                font-size: 16px;
+                padding: 0 6px;
+                padding-left: 12px;
+                :focus{
+                    border: 3px solid #5551ff;
+                }
+                
+} */
+ 
