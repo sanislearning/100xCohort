@@ -10,7 +10,7 @@ return(
     <Routes>
         <Route path="signup" element={<Signup/>}/>
         <Route path="dashboard" element={<Dashboard/>}/>
-        <Route path="signin" element={<Signin/>}/>
+        <Route path="/" element={<Signin/>}/>
     </Routes>
   </BrowserRouter>
 )
